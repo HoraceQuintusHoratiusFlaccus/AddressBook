@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     QStringList TableHeader;
     TableHeader << "Name" << "Address";
 
@@ -22,13 +21,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_AddButton_clicked()
 {
-    QString Name, Address;
     AddAdrDialog AddAdrDialog(this);
 
     AddAdrDialog.exec();
 
-    Name = AddAdrDialog.Name();
-    Address = AddAdrDialog.Address();
+    if (!AddAdrDialog.GetIsOk())
+        return;
+
+    QString Name = AddAdrDialog.Name();
+    QString Address = AddAdrDialog.Address();
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     int index = ui->tableWidget->rowCount() - 1;
