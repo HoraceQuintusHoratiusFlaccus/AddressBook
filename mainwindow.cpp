@@ -4,6 +4,7 @@
 
 #include <QFile>
 #include <QDebug>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -42,4 +43,24 @@ void MainWindow::on_AddButton_clicked()
     int index = ui->tableWidget->rowCount() - 1;
     ui->tableWidget->setItem(index, NAME, new QTableWidgetItem(Name));
     ui->tableWidget->setItem(index, ADDRESS, new QTableWidgetItem(Address));
+}
+
+void MainWindow::on_ShowButton_clicked()
+{
+    QFile File("C:\\AddressBook.txt");
+
+    if (!File.open(QFile::ReadOnly | QFile::Text))
+    {
+        qDebug() << "Can't open file.";
+        return;
+    }
+
+    QTextStream FileData(&File);
+
+    QMessageBox ShowAdrData(this);
+    ShowAdrData.setText(FileData.readAll());
+    ShowAdrData.show();
+    ShowAdrData.exec();
+
+    File.close();
 }
