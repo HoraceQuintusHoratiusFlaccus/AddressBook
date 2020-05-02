@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "addadrdialog.h"
 
+#include <QFile>
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -21,6 +24,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_AddButton_clicked()
 {
+    QString Name = NULL, Address = NULL;
     AddAdrDialog AddAdrDialog(this);
 
     AddAdrDialog.exec();
@@ -28,8 +32,11 @@ void MainWindow::on_AddButton_clicked()
     if (!AddAdrDialog.GetIsOk())
         return;
 
-    QString Name = AddAdrDialog.Name();
-    QString Address = AddAdrDialog.Address();
+    Name = AddAdrDialog.Name();
+    Address = AddAdrDialog.Address();
+
+    if (Name == NULL || Address == NULL)
+        return;
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     int index = ui->tableWidget->rowCount() - 1;
