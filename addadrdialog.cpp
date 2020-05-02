@@ -13,6 +13,19 @@ AddAdrDialog::~AddAdrDialog()
     delete ui;
 }
 
+void AddAdrDialog::on_buttonBox_clicked(QAbstractButton *button)
+{
+    switch (ui->buttonBox->standardButton(button))
+    {
+    case QDialogButtonBox::Ok:
+        IsOk = true;
+        break;
+    default:
+        IsOk = false;
+        break;
+    }
+}
+
 void AddAdrDialog::on_buttonBox_accepted()
 {
     accept();
@@ -21,6 +34,11 @@ void AddAdrDialog::on_buttonBox_accepted()
 void AddAdrDialog::on_buttonBox_rejected()
 {
     reject();
+}
+
+bool AddAdrDialog::GetIsOk()
+{
+    return IsOk;
 }
 
 QString AddAdrDialog::Name() const
