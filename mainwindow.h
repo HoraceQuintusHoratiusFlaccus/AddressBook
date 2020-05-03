@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,8 +16,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    QVector<QString> SaveAdrData;
+
 private slots:
     void on_AddButton_clicked();
+
+    void on_ShowButton_clicked();
+
+    void on_SaveButton_clicked();
 
 private:
     Ui::MainWindow *ui;
