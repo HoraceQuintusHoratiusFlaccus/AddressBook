@@ -43,6 +43,10 @@ void MainWindow::on_AddButton_clicked()
     int index = ui->tableWidget->rowCount() - 1;
     ui->tableWidget->setItem(index, NAME, new QTableWidgetItem(Name));
     ui->tableWidget->setItem(index, ADDRESS, new QTableWidgetItem(Address));
+    SaveAdrData.push_back(Name);
+    SaveAdrData.push_back(": ");
+    SaveAdrData.push_back(Address);
+    SaveAdrData.push_back("\n");
 }
 
 void MainWindow::on_ShowButton_clicked()
@@ -63,4 +67,28 @@ void MainWindow::on_ShowButton_clicked()
     ShowAdrData.exec();
 
     File.close();
+}
+
+void MainWindow::on_SaveButton_clicked()
+{
+    QFile File("C:\\AddressBook.txt");
+
+    if (!File.open(QFile::WriteOnly | QFile::Text | QIODevice::Append))
+    {
+        qDebug() << "Can't open file.";
+        return;
+    }
+
+    QTextStream FileData(&File);
+
+    for (int idx = 0; idx < SaveAdrData.size(); ++idx)
+        FileData << SaveAdrData[idx];
+
+    SaveAdrData.clear();
+
+    File.close();
+
+    QMessageBox Result(this);
+    Result.setText("Success!");
+    Result.exec();
 }
