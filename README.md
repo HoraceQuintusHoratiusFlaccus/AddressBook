@@ -3,8 +3,9 @@
 Address book made with Qt.
 
 ## Requirement
+
 - Create the C:\AddressBook.txt file. Address information is stored in this file.
 
-## Unimplemented function
+## Function
 
-Function to save information through file I/O.
+- Function to save and get information through file I/O.
